@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author lidai
@@ -27,11 +28,13 @@ public class Role extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Integer roleId;
 
     /**
      * 角色名
      */
+    @Column(name = "role_name")
     private String roleName;
 
     /**
@@ -43,5 +46,8 @@ public class Role extends BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 }
 

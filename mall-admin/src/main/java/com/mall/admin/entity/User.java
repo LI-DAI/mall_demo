@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author lidai
@@ -29,6 +30,7 @@ public class User extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Integer userId;
 
     /**
@@ -64,6 +66,7 @@ public class User extends BaseEntity implements Serializable {
     /**
      * 电话
      */
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     /**
@@ -81,6 +84,15 @@ public class User extends BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
+
+    /**
+     * 角色集合
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "sys_user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    private Set<Role> roles;
 
 }
 

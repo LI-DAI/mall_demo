@@ -6,6 +6,7 @@ package com.mall.common.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
@@ -19,14 +20,18 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class BaseEntity {
 
+    @Column(name = "create_time")
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
+    @Column(name = "create_by")
     private String createBy;
 
+    @Column(name = "update_time")
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
 
+    @Column(name = "update_by")
     private String updateBy;
 }
 

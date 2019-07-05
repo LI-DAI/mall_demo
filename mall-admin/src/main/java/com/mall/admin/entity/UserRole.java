@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -17,8 +18,8 @@ import java.io.Serializable;
  * @since
  */
 @Data
-@Entity
-@Table(name = "user_role")
+//@Entity
+//@Table(name = "sys_user_role")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRole implements Serializable {
