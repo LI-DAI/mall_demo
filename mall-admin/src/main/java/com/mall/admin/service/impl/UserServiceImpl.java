@@ -13,8 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,10 +28,14 @@ import java.util.List;
  * @since
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * 动态查询
@@ -66,6 +72,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer insertUser(User user) {
+        Long count = checkUsernameValid(user.getUsername(), user.getUserId());
+        if (count > 0) {
+            throw new IllegalArgumentException("该用户名已被使用！");
+        }
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         return userRepository.save(user).getUserId();
@@ -98,6 +108,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUser(User user) {
+        Long count = checkUsernameValid(user.getUsername(), user.getUserId());
+        if (count > 0) {
+            throw new IllegalArgumentException("该用户名已被使用！");
+        }
         user.setUpdateTime(LocalDateTime.now());
         userRepository.saveAndFlush(user);
     }
@@ -108,18 +122,32 @@ public class UserServiceImpl implements UserService {
      * @param username
      * @return
      */
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public Integer checkUsernameValid(String username, Integer userId) {
-        userRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
+    /**
+     * 检查用户名是否重复
+     *
+     * @param username 用户名
+     * @param userId   用户id
+     * @return
+     */
+    @Override
+    public Long checkUsernameValid(String username, Integer userId) {
+        return userRepository.count((root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicateList = new ArrayList<>();
             if (StringUtils.hasText(username)) {
+                predicateList.add(criteriaBuilder.equal(root.get("username"), username));
             }
-            return null;
+            if (null != userId) {
+                predicateList.add(criteriaBuilder.notEqual(root.get("userId"), userId));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
         });
-        return 1;
     }
+
+
 }
 

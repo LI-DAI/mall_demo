@@ -22,5 +22,10 @@ public interface UserService {
     void batchDeleteByUserId(Integer[] userIds);
 
     void updateUser(User user);
+
+    User findByUsername(String username);
+
+    Long checkUsernameValid(String username, Integer userId);
+
 }
 
