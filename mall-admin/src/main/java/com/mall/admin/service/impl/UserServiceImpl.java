@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Page<User> getUserList(String username, String nickname, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createTime", "updateTime");
+        Pageable pageable = PageRequest.of(page-1, size, Sort.Direction.DESC, "createTime", "updateTime");
         //自定义查询条件
         Specification<User> queryCondition = new Specification<User>() {
             @Override

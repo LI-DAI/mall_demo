@@ -5,9 +5,7 @@ package com.mall.admin.entity;
 
 import com.mall.admin.enums.Gender;
 import com.mall.common.entity.BaseEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,8 +20,6 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "sys_user")
-@AllArgsConstructor
-@NoArgsConstructor
 public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -4956838508015963036L;
@@ -93,6 +89,23 @@ public class User extends BaseEntity implements Serializable {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Set<Role> roles;
+
+    public User() {
+    }
+
+    public User(String nickname, String username, String password, String salt, String avatar, String email, String phoneNumber, Gender gender, char status, String remark) {
+        this.nickname = nickname;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.avatar = avatar;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.status = status;
+        this.remark = remark;
+    }
+
 
 }
 

@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
  * @date 2019/7/3 11:36
  * <p>
  * 使用HQL一定要用实体类中映射得属性
+ * 注：@Query 注解用于声明查询操作，当操作不是查询时需要时用@Modifying注解声明操作，且需要添加事务支持
+ *      nativeQuery = true 时代表使用本地查询，即正常sql查询，false为使用jpql查询
  */
 public interface UserRepository extends BaseRepository<User, Integer> {
 
@@ -22,7 +24,8 @@ public interface UserRepository extends BaseRepository<User, Integer> {
 
     @Modifying
     @Transactional
-    @Query("delete from User where userId in (?1)")
+    @Query(value = "delete from User where userId in (?1)")
     void batchDeleteByUserIds(Integer[] userIds);
+    
 }
 
