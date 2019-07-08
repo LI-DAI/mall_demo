@@ -5,10 +5,7 @@ package com.mall.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mall.common.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"users"})
+@ToString(exclude = {"users"})
 public class Role extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1329231498913534153L;
@@ -51,7 +49,7 @@ public class Role extends BaseEntity implements Serializable {
     private String remark;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> users;
 
 }

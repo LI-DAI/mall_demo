@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,7 @@ public class JPATest_1 {
      * {@link UserRepository#findById(Object)}此方法立即加载
      */
     @Test
+    @Transactional//在测试环境中解决no-session
     public void test_1() {
         User user1 = userRepository.getOne(1);
         System.out.println(user1);

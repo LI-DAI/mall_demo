@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Page<User> getUserList(String username, String nickname, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page-1, size, Sort.Direction.DESC, "createTime", "updateTime");
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime", "updateTime");
         //自定义查询条件
         Specification<User> queryCondition = new Specification<User>() {
             @Override
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
                 predicateList.add(criteriaBuilder.equal(root.get("username"), username));
             }
             if (null != userId) {
-                predicateList.add(criteriaBuilder.notEqual(root.get("userId"), userId));
+                predicateList.add(criteriaBuilder.notEqual(root.get("userId").as(Integer.class), userId));
             }
             return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
         });

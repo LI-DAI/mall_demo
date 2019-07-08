@@ -83,8 +83,9 @@ public class User extends BaseEntity implements Serializable {
 
     /**
      * 角色集合
+     * 设置为懒加载，不使用role就不会加载，仅用于关联关系，有利于提升效率
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "sys_user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
