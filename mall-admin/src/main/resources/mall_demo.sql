@@ -52,13 +52,15 @@ CREATE TABLE `sys_user` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_by` varchar(50) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `user_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `user_id` int(11) DEFAULT NULL,
+   `role_id` int(11) DEFAULT NULL,
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
