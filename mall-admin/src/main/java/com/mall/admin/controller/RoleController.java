@@ -7,12 +7,10 @@ import com.mall.admin.entity.Role;
 import com.mall.admin.service.RoleService;
 import com.mall.common.entity.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lidai
@@ -33,6 +31,19 @@ public class RoleController {
         try {
             roleService.insertRole(role);
             return Result.build().success("新增成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.build().fail(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{roleId}")
+    @ApiOperation(value = "删除角色", httpMethod = "DELETE")
+    @ApiImplicitParam(paramType = "path", name = "roleId", value = "角色id", dataType = "Integer")
+    public Result deleteRole(@PathVariable Integer roleId) {
+        try {
+            roleService.deleteRole(roleId);
+            return Result.build().success("删除成功");
         } catch (Exception e) {
             e.printStackTrace();
             return Result.build().fail(e.getMessage());

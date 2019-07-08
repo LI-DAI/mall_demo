@@ -56,7 +56,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @ApiOperation(value = "根据用户id删除用户", httpMethod = "DELETE")
-    @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "Integer")
+    @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", dataType = "Integer")
     public Result deleteUserById(@PathVariable Integer userId) {
         try {
             userService.deleteByUserId(userId);

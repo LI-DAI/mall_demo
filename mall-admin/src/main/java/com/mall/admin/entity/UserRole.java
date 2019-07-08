@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -18,16 +16,22 @@ import java.io.Serializable;
  * @since
  */
 @Data
-//@Entity
-//@Table(name = "sys_user_role")
+@Entity
+@Table(name = "sys_user_role")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 165902797926885037L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "user_id")
     private Integer userId;
 
-    private String roleId;
+    @Column(name = "role_id")
+    private Integer roleId;
 }
 

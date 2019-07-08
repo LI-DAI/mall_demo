@@ -5,10 +5,14 @@ package com.mall.admin.service.impl;
 
 import com.mall.admin.entity.Role;
 import com.mall.admin.repository.RoleRepository;
+import com.mall.admin.repository.UserRoleRepository;
 import com.mall.admin.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /**
  * @author lidai
@@ -22,9 +26,20 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     @Override
     public void insertRole(Role role) {
+        role.setCreateTime(LocalDateTime.now());
+        role.setUpdateTime(LocalDateTime.now());
         roleRepository.save(role);
+    }
+
+    @Override
+    public void deleteRole(Integer roleId) {
+        userRoleRepository.deleteByRoleIds(Arrays.asList(roleId));
+        roleRepository.deleteById(roleId);
     }
 }
 

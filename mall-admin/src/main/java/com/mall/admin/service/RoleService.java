@@ -13,5 +13,7 @@ import com.mall.admin.entity.Role;
 public interface RoleService {
 
     void insertRole(Role role);
+
+    void deleteRole(Integer roleId);
 }
 
