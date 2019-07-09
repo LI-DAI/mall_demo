@@ -8,6 +8,7 @@ import com.mall.admin.service.RoleService;
 import com.mall.common.entity.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,22 @@ public class RoleController {
         try {
             roleService.deleteRole(roleId);
             return Result.build().success("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.build().fail(e.getMessage());
+        }
+    }
+
+    @GetMapping("/list")
+    @ApiOperation(value = "获取role", httpMethod = "GET")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(paramType = "query", name = "page", value = "页码", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query", name = "size", value = "页数", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query", name = "roleName", value = "角色名", dataType = "String"),
+    })
+    public Result getRoleList(Integer page, Integer size, String roleName) {
+        try {
+            return Result.build().success("获取成功", roleService.getRoleList(page, size, roleName));
         } catch (Exception e) {
             e.printStackTrace();
             return Result.build().fail(e.getMessage());

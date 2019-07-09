@@ -4,6 +4,7 @@
 package com.mall.admin.service;
 
 import com.mall.admin.entity.Role;
+import org.springframework.data.domain.Page;
 
 /**
  * @author lidai
@@ -15,5 +16,7 @@ public interface RoleService {
     void insertRole(Role role);
 
     void deleteRole(Integer roleId);
+
+    Page<Role> getRoleList(Integer page, Integer size, String roleName);
 }
 

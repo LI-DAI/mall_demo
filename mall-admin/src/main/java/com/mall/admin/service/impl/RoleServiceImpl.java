@@ -8,9 +8,14 @@ import com.mall.admin.repository.RoleRepository;
 import com.mall.admin.repository.UserRoleRepository;
 import com.mall.admin.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -40,6 +45,19 @@ public class RoleServiceImpl implements RoleService {
     public void deleteRole(Integer roleId) {
         userRoleRepository.deleteByRoleIds(Arrays.asList(roleId));
         roleRepository.deleteById(roleId);
+    }
+
+    @Override
+    public Page<Role> getRoleList(Integer page, Integer size, String roleName) {
+        Pageable pageable = PageRequest.of(page-1, size);
+        Page<Role> roles = roleRepository.findAll((root, query, criteriaBuilder) -> {
+            Predicate predicate = null;
+            if (StringUtils.hasText(roleName)) {
+                predicate = criteriaBuilder.like(root.get("roleName").as(String.class), "%" + roleName + "%");
+            }
+            return criteriaBuilder.and(predicate);
+        }, pageable);
+        return roles;
     }
 }
 

@@ -1,0 +1,3 @@
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#  com.mall.admin.configuration.DruidConfiguration,\
+#  com.mall.admin.configuration.SecurityConfiguration

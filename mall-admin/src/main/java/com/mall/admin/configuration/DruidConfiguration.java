@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -25,8 +26,9 @@ import javax.sql.DataSource;
 @ConditionalOnBean({com.alibaba.druid.pool.DruidDataSource.class})
 @ConditionalOnProperty(name = "spring.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource")
 public class DruidConfiguration {
-    
+
     @Bean
+    @Primary//配置为主数据源
     @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource dataSource() {
         return DruidDataSourceBuilder.create().build();
