@@ -49,13 +49,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Page<Role> getRoleList(Integer page, Integer size, String roleName) {
-        Pageable pageable = PageRequest.of(page-1, size);
+        Pageable pageable = PageRequest.of(page - 1, size);
         Page<Role> roles = roleRepository.findAll((root, query, criteriaBuilder) -> {
             Predicate predicate = null;
             if (StringUtils.hasText(roleName)) {
                 predicate = criteriaBuilder.like(root.get("roleName").as(String.class), "%" + roleName + "%");
+                return criteriaBuilder.and(predicate);
             }
-            return criteriaBuilder.and(predicate);
+            return null;
         }, pageable);
         return roles;
     }
