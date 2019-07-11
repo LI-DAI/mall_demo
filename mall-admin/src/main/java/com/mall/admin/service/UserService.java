@@ -3,8 +3,11 @@
  */
 package com.mall.admin.service;
 
+import com.mall.admin.entity.Permission;
 import com.mall.admin.entity.User;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * @author lidai
@@ -26,6 +29,10 @@ public interface UserService {
     User findByUsername(String username);
 
     Long checkUsernameValid(String username, Integer userId);
+
+    List<Permission> getUserPermissions(Integer userId);
+
+    List<Permission> getTreePermsList(List<Permission> permissions, Integer parentId);
 
 }
 

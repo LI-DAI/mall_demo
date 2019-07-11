@@ -7,8 +7,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author lidai
@@ -19,7 +22,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_permission")
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"role"})
+@EqualsAndHashCode(exclude = {"roles", "children"})
+@ToString(exclude = {"roles"})
 public class Permission {
 
     @Id
@@ -41,11 +45,14 @@ public class Permission {
     private String description;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinTable(name = "sys_role_permission"
-            , joinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "permission_id")
-            , inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
-    private Role role;
+    @ManyToMany(mappedBy = "permissions")
+//    @JoinTable(name = "sys_role_permission"
+//            , joinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "permission_id")
+//            , inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    private Set<Role> roles;
+
+    @Transient
+    private List<Permission> children;
 
     public Permission(Integer parentId, String name, String perms, String url, String type, String description) {
         this.parentId = parentId;
@@ -56,17 +63,5 @@ public class Permission {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Permission{" +
-                "permissionId=" + permissionId +
-                ", parentId=" + parentId +
-                ", name='" + name + '\'' +
-                ", perms='" + perms + '\'' +
-                ", url='" + url + '\'' +
-                ", type='" + type + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
 

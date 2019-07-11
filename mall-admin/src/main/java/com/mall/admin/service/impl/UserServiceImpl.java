@@ -3,7 +3,9 @@
  */
 package com.mall.admin.service.impl;
 
+import com.mall.admin.entity.Permission;
 import com.mall.admin.entity.User;
+import com.mall.admin.repository.PermissionRepository;
 import com.mall.admin.repository.UserRepository;
 import com.mall.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private EntityManager entityManager;
+    private PermissionRepository permissionRepository;
 
     /**
      * 动态查询
@@ -148,6 +149,35 @@ public class UserServiceImpl implements UserService {
         });
     }
 
+    /**
+     * 获取用户权限
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Permission> getUserPermissions(Integer userId) {
+        List<Permission> permissions = permissionRepository.getPermissionsByUserId(userId);
+        return getTreePermsList(permissions, 0);
+    }
 
+    /**
+     * 获取树形结构
+     *
+     * @param permissions
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Permission> getTreePermsList(List<Permission> permissions, Integer parentId) {
+        List<Permission> result = new ArrayList<>();
+        permissions.forEach(permission -> {
+            if (permission.getParentId().equals(parentId)) {
+                permission.setChildren(getTreePermsList(permissions, permission.getPermissionId()));
+                result.add(permission);
+            }
+        });
+        return result;
+    }
 }
 

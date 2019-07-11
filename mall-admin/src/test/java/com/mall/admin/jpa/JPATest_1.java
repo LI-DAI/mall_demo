@@ -3,8 +3,10 @@
  */
 package com.mall.admin.jpa;
 
+import com.mall.admin.entity.Permission;
 import com.mall.admin.entity.User;
 import com.mall.admin.enums.Gender;
+import com.mall.admin.repository.PermissionRepository;
 import com.mall.admin.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,6 +75,16 @@ public class JPATest_1 {
         List<User> users = Arrays.asList(user, user2);
         List<User> userList = userRepository.saveAll(users);
         System.out.println(userList);
+    }
+
+
+    @Autowired
+    private PermissionRepository permissionRepository;
+
+    @Test
+    public void test_5() {
+        List<Permission> permissions = permissionRepository.getPermissionsByUserId(2);
+        System.out.println(permissions);
     }
 }
 

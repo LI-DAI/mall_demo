@@ -52,11 +52,11 @@ public class Role extends BaseEntity implements Serializable {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> users;
 
-
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "sys_role_permission"
-//            , joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-//            , inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "permission_id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "sys_role_permission"
+            , joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+            , inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "permission_id"))
     private Set<Permission> permissions;
+
 }
 

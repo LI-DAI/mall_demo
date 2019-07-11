@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,6 +29,7 @@ public class UserController {
 
     @PostMapping("/insert")
     @ApiOperation(value = "新增用户", httpMethod = "POST")
+    @PreAuthorize(value = "hasAuthority('user::add')")
     public Result insertUser(@RequestBody User user) {
         try {
             return Result.build().success(userService.insertUser(user));
@@ -45,6 +47,7 @@ public class UserController {
             @ApiImplicitParam(paramType = "query", name = "page", value = "页码", dataType = "Integer"),
             @ApiImplicitParam(paramType = "query", name = "size", value = "页数", dataType = "Integer")
     })
+    @PreAuthorize(value = "hasAuthority('user::get')")
     public Result getAllUser(String nickname, String username, Integer page, Integer size) {
         try {
             return Result.build().success(userService.getUserList(username, nickname, page, size));
