@@ -34,6 +34,11 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    /**
+     * 新增角色
+     *
+     * @param role
+     */
     @Override
     public void insertRole(Role role) {
         role.setCreateTime(LocalDateTime.now());
@@ -41,19 +46,31 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.save(role);
     }
 
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     */
     @Override
     public void deleteRole(Integer roleId) {
         userRoleRepository.deleteByRoleIds(Arrays.asList(roleId));
         roleRepository.deleteById(roleId);
     }
 
+    /**
+     * 获取角色
+     *
+     * @param page
+     * @param size
+     * @param roleName
+     * @return
+     */
     @Override
     public Page<Role> getRoleList(Integer page, Integer size, String roleName) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Role> roles = roleRepository.findAll((root, query, criteriaBuilder) -> {
-            Predicate predicate = null;
             if (StringUtils.hasText(roleName)) {
-                predicate = criteriaBuilder.like(root.get("roleName").as(String.class), "%" + roleName + "%");
+                Predicate predicate = criteriaBuilder.like(root.get("roleName").as(String.class), "%" + roleName + "%");
                 return criteriaBuilder.and(predicate);
             }
             return null;

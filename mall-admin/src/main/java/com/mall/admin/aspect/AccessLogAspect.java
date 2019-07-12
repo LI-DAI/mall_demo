@@ -62,6 +62,7 @@ public class AccessLogAspect {
         accessLog.setIp(request.getRemoteAddr());
         accessLog.setStartTime(start);
         log.info("operation start time : {}", start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        // TODO: 2019/7/11 Json里得LocalDateTime总是显示为Long类型数字
         log.info(JSONObject.toJSONString(accessLog));
         return result;
     }

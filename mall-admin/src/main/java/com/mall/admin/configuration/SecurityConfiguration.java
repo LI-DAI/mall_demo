@@ -3,13 +3,16 @@
  */
 package com.mall.admin.configuration;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mall.admin.entity.Permission;
 import com.mall.admin.entity.User;
 import com.mall.admin.repository.PermissionRepository;
 import com.mall.admin.repository.UserRepository;
+import com.mall.common.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -83,13 +86,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.setCharacterEncoding("UTF-8");
                     Writer writer = response.getWriter();
-                    writer.write("reject ! no permission .");
+                    writer.write(JSONObject.toJSONString(Result.build().unauthorized()));
                     writer.flush();
                 });
 

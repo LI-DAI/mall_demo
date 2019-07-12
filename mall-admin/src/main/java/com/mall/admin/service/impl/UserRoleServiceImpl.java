@@ -24,6 +24,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    /**
+     * 批量新增
+     *
+     * @param userRoles
+     */
     @Override
     public void batchInsert(List<UserRole> userRoles) {
         userRoleRepository.saveAll(userRoles);

@@ -60,6 +60,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     @ApiOperation(value = "根据用户id删除用户", httpMethod = "DELETE")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", dataType = "Integer")
+    @PreAuthorize(value = "hasAuthority('user::delete')")
     public Result deleteUserById(@PathVariable Integer userId) {
         try {
             userService.deleteByUserId(userId);
@@ -74,6 +75,7 @@ public class UserController {
     @DeleteMapping("/batch")
     @ApiOperation(value = "批量删除用户", httpMethod = "DELETE")
     @ApiImplicitParam(paramType = "query", name = "userIds", value = "用户id数组", dataType = "Array")
+    @PreAuthorize(value = "hasAuthority('user::delete')")
     public Result batchDeleteByUserIds(@RequestParam("userIds") Integer[] userIds) {
         try {
             userService.batchDeleteByUserId(userIds);
@@ -86,6 +88,7 @@ public class UserController {
 
     @PutMapping("/update")
     @ApiOperation(value = "修改用户信息", httpMethod = "PUT")
+    @PreAuthorize(value = "hasAuthority('user::update')")
     public Result updateUser(@RequestBody User user) {
         try {
             userService.updateUser(user);
