@@ -18,6 +18,7 @@
     <modules>
         <module>mall-admin</module>
         <module>mall-common</module>
+        <module>mall-market</module>
     </modules>
 
     <properties>
