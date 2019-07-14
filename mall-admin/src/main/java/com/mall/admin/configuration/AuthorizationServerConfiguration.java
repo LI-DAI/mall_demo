@@ -5,12 +5,15 @@ package com.mall.admin.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -24,8 +27,8 @@ import javax.sql.DataSource;
  * <p>
  * 认证服务器
  */
-//@Configuration
-//@EnableAuthorizationServer
+@Configuration
+@EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -57,8 +60,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore());
+//                .authenticationManager(authenticationManager);
 //        DefaultTokenServices tokenServices = new DefaultTokenServices();
 //        tokenServices.setTokenStore(endpoints.getTokenStore());
 //        tokenServices.setSupportRefreshToken(true);
@@ -83,6 +86,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public ClientDetailsService detailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
+
 
 }
 
