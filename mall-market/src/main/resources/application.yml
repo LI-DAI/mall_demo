@@ -1,7 +1,5 @@
 server:
   port: 2002
-#  servlet:
-#    context-path: /content
 
 spring:
   application:
@@ -10,8 +8,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      #      url: jdbc:mysql://10.0.93.60:3306/mall_demo?useUnicode=true&characterEncoding=utf8
-      url: jdbc:mysql://localhost:3306/mall_demo?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://10.0.93.60:3306/mall_demo?useUnicode=true&characterEncoding=utf8
+#      url: jdbc:mysql://localhost:3306/mall_demo?useUnicode=true&characterEncoding=utf8
       username: root
       password: 123456
       initial-size: 1
@@ -35,7 +33,18 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-
+  redis:
+    database: 0
+    port: 6379
+    host: 10.0.93.60
+    password:
+    timeout: 5000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 1
 #security
 auth-server: http://localhost:2001/oauth
 security:

@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 @Configuration
 @ConditionalOnBean({com.alibaba.druid.pool.DruidDataSource.class})
 @ConditionalOnProperty(name = "spring.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource")
+@SuppressWarnings("all")
 public class DruidConfiguration {
 
     @Bean

@@ -5,6 +5,7 @@ package com.mall.admin.service;
 
 import com.mall.admin.entity.Permission;
 import com.mall.admin.entity.User;
+import com.mall.common.entity.Result;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -34,5 +35,6 @@ public interface UserService {
 
     List<Permission> getTreePermsList(List<Permission> permissions, Integer parentId);
 
+    Result login(User user);
 }
 

@@ -8,7 +8,9 @@ import com.mall.admin.entity.User;
 import com.mall.admin.repository.PermissionRepository;
 import com.mall.admin.repository.UserRepository;
 import com.mall.admin.service.UserService;
+import com.mall.common.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
@@ -37,6 +42,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Value("${auth-server}")
+    private String oauthUrl;
+
 
     /**
      * 动态查询
@@ -178,6 +190,18 @@ public class UserServiceImpl implements UserService {
             }
         });
         return result;
+    }
+
+    @Override
+    public Result login(User user) {
+        MultiValueMap params = new LinkedMultiValueMap();
+        params.add("client", "browser");
+        params.add("secret", "secret");
+        params.add("username", user.getUsername());
+        params.add("password", user.getPassword());
+        params.add("grant_type", "password");
+//        restTemplate.postForObject(oauthUrl + "/token", params);
+        return null;
     }
 }
 

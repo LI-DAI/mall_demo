@@ -98,5 +98,15 @@ public class UserController {
             return Result.build().fail(e.getMessage());
         }
     }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        try {
+            return userService.login(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.build().fail(e.getMessage());
+        }
+    }
 }
 
