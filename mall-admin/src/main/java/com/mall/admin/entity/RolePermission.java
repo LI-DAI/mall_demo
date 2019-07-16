@@ -6,6 +6,7 @@ package com.mall.admin.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author lidai
@@ -15,7 +16,9 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "sys_role_permission")
-public class RolePermission {
+public class RolePermission implements Serializable {
+
+    private static final long serialVersionUID = 1874484215160015901L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

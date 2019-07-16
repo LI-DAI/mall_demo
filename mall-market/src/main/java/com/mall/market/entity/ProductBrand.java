@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author lidai
@@ -20,8 +21,10 @@ import javax.persistence.*;
 @Table(name = "market_product_brand")
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductBrand {
+public class ProductBrand implements Serializable {
 
+    private static final long serialVersionUID = 4066518364159966368L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")

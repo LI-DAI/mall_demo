@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,9 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"roles", "children"})
 @ToString(exclude = {"roles"})
-public class Permission {
+public class Permission implements Serializable {
+
+    private static final long serialVersionUID = -5344829290304431243L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

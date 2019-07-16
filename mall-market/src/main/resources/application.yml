@@ -45,12 +45,18 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 1
+  rabbitmq:
+    host: 10.0.93.60
+    port: 5672
+    username: guest
+    password: guest
+
 #security
 auth-server: http://localhost:2001/oauth
 security:
   oauth2:
     client:
-      client-id: client
+      client-id: browser
       client-secret: secret
       access-token-uri: ${auth-server}/token
       user-authorization-uri: ${auth-server}/authorize
