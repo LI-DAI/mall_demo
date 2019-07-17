@@ -1,7 +1,7 @@
 /*
  * Copyright (C), 2013-2019, 天津大海云科技有限公司
  */
-package com.mall.market.repository;
+package com.mall.market.repository.jpa;
 
 import com.mall.common.repository.BaseRepository;
 import com.mall.market.entity.ProductBrand;

@@ -4,7 +4,7 @@
 package com.mall.market.service.impl;
 
 import com.mall.market.entity.ProductBrand;
-import com.mall.market.repository.ProductBrandRepository;
+import com.mall.market.repository.jpa.ProductBrandRepository;
 import com.mall.market.service.ProductBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

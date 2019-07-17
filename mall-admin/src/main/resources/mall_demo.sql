@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2019-07-10 10:38:22
+Date: 2019-07-17 09:46:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -149,11 +149,11 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_permission`;
 CREATE TABLE `sys_role_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `permission_id` int(11) NOT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色权限id',
+  `permission_id` int(11) NOT NULL COMMENT '权限id',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -176,15 +176,15 @@ CREATE TABLE `sys_user` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_by` varchar(50) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户角色id',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

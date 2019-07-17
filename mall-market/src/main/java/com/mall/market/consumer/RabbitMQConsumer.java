@@ -18,12 +18,12 @@ import java.util.Map;
 public class RabbitMQConsumer {
 
     //    @RabbitHandler
-    @RabbitListener(queues = "lidai")
+    @RabbitListener(queues = "fanout_queue")
     public void receive(Map<String, Object> map) {
         System.out.println("收到消息：" + map);
     }
 
-    @RabbitListener(queues = "lidai.name")
+    @RabbitListener(queues = "topic_queue")
     public void receive(Message message) {
         System.out.println(message.getBody().toString());
         System.out.println(message.getMessageProperties().toString());

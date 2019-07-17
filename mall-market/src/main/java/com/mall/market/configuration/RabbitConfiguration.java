@@ -3,10 +3,7 @@
  */
 package com.mall.market.configuration;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -30,19 +27,62 @@ public class RabbitConfiguration {
         return new Jackson2JsonMessageConverter();
     }
 
+    /**
+     * direct 模式
+     */
     @Bean
     public Queue queue() {
         return new Queue("order");
     }
 
     @Bean
-    public DirectExchange exchange() {
+    public DirectExchange directExchange() {
         return new DirectExchange("direct_order_exchange");
     }
 
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(queue()).to(exchange()).with("order.create");
+        return BindingBuilder.bind(queue()).to(directExchange()).with("order.create");
     }
+
+    /**
+     * fanout 模式
+     */
+    @Bean
+    public Queue fanout() {
+        return new Queue("fanout_queue");
+    }
+
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        return new FanoutExchange("fanout_test_exchange");
+    }
+
+    @Bean
+    public Binding fanoutBinding() {
+        return BindingBuilder.bind(fanout()).to(fanoutExchange());
+    }
+
+    /**
+     * topic 模式
+     */
+    @Bean
+    public Queue topicQueue() {
+        return new Queue("topic_queue");
+    }
+
+    @Bean
+    public TopicExchange topicExchange() {
+        return new TopicExchange("topic_test_exchange");
+    }
+
+    @Bean
+    public Binding topicBinding() {
+        return BindingBuilder.bind(topicQueue()).to(topicExchange()).with("test.#");
+    }
+
+    /**
+     * 注：exchange 和 queue 之间的绑定关系是 多对多关系
+     */
 }
 

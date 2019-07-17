@@ -1,9 +1,9 @@
 server:
-  port: 2002
+  port: 2001
 
 spring:
   application:
-    name: mall-market
+    name: mall-admin
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -27,6 +27,8 @@ spring:
       filter: stat,wall
       use-global-data-source-stat: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#   启动时执行 mall_demo.sql 脚本
+#    schema: classpath:mall_demo.sql
   jpa:
     database: mysql
     show-sql: true
@@ -45,20 +47,6 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 1
-  rabbitmq:
-    host: 10.0.93.60
-    port: 5672
-    username: guest
-    password: guest
-#  elasticsearch
-  data:
-    elasticsearch:
-      cluster-name: docker-cluster
-      cluster-nodes: 10.0.93.60:9300
-  #解决报错：Elasticsearch health check failed
-  elasticsearch:
-    rest:
-      uris: 10.0.93.60:9200
 
 #security
 auth-server: http://localhost:2001/oauth

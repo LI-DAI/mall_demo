@@ -6,6 +6,7 @@ package com.mall.market.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,14 +22,16 @@ import java.io.Serializable;
 @Table(name = "market_product_brand")
 @NoArgsConstructor
 @AllArgsConstructor
+//声明存储于索引库为mall_demo下，类型为ProductBrand
+@Document(indexName = "mall_product_brand", type = "ProductBrand")
 public class ProductBrand implements Serializable {
 
     private static final long serialVersionUID = 4066518364159966368L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
-    private Long brandId;
+    private Long id;
 
     @Column(name = "brand_name")
     private String brandName;
