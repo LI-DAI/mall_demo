@@ -31,7 +31,8 @@ public class ProductBrand implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
-    private Long id;
+    @org.springframework.data.annotation.Id//声明es主键
+    private Long brandId;
 
     @Column(name = "brand_name")
     private String brandName;

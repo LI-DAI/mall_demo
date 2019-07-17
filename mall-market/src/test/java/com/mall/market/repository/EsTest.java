@@ -1,10 +1,13 @@
 /*
  * Copyright (C), 2013-2019, 天津大海云科技有限公司
  */
-package com.mall.market.repository.es;
+package com.mall.market.repository;
 
 import com.mall.market.entity.Book;
 import com.mall.market.entity.ProductBrand;
+import com.mall.market.repository.es.BookRepository;
+import com.mall.market.repository.es.ProductBrandESRepository;
+import com.mall.market.repository.jpa.ProductBrandRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class EsTest {
     @Autowired
     private ProductBrandESRepository productBrandESRepository;
 
+    @Autowired
+    private ProductBrandRepository productBrandRepository;
+
     @Test
     public void test_1() {
         Book book = new Book(1, "没有什么会永垂不朽", 100);
@@ -47,7 +53,7 @@ public class EsTest {
     @Test
     public void test_3() {
         ProductBrand productBrand = new ProductBrand(
-                1l,
+                3l,
                 "name",
                 "13111111111",
                 "www.baidu.com",
