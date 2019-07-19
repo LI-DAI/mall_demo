@@ -99,7 +99,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/oauth/check_token", "/user/login");
+        web.ignoring().antMatchers("/oauth/check_token", "/login");
     }
 
     @Bean

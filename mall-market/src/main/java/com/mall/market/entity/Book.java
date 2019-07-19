@@ -11,7 +11,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 /**
  * @author lidai
  * @date 2019/7/17 13:37
- * @since
+ * <p>
+ * es功能测试类
  */
 @Data
 @Document(indexName = "mall_demo", type = "Book")
