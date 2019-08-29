@@ -1,11 +1,11 @@
 # mall_demo
 算是一个后端的手脚架吧，尚未完成，正在填充内容。
 
-###开发环境及工具
+### 开发环境及工具
 
 JDK1.8,maven,IDEA2018,springboot2.1.6,mysql5.5.62,docker,rabbitmq,elasticsearch
 
-###技术结构
+### 技术结构
 
 spring boot                 基础架构
 
@@ -20,7 +20,7 @@ elasticsearch               集成检索引擎
 rabbitmq                    集成消息队列
 
 
-###项目启动
+### 项目启动
 1、创建mall_demo数据库，修改url地址（jpa自动创建数据库表）
 
 2、开启redis ,修改redis地址
